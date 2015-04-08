@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Project</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/sidebar.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE">
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Neighborhood Map <img src="img/map_icon.png">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+                <li id="pinned-locations">
+                    <a href="#">Pinned Locations</a>
+                </li>
+                <ul data-bind="foreach: pins" id="pinned-locations-list" class="sidebar-brand">
+                    <li data-bind="text: name"></li>
+                </ul>
+                    <input type="text" class="form-control" placeholder="Search locations...">
+                </li>
+            </ul>
+        </div>
+    </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+            <div id="map-canvas"><a href="#menu-toggle" class="btn btn-default sidebar-button" id="menu-toggle">Toggle Menu</a></div>
+
+    <script type="text/javascript" src="js/libs/jquery.js"></script>
+    <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#pinned-locations").click(function() {
+        $("#pinned-locations-list").toggle("slow");
+    });
+    </script>
+
+</body>
+</html>

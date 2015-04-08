@@ -1,0 +1,10 @@
+#pinned-locations-list {
+	display: none;
+}
+
+.sidebar-button {
+	position: absolute;
+	z-index: 1000;
+
+}
+
