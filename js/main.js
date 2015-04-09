@@ -32,7 +32,7 @@ var mapPin = function(name, lat, long, text) {
         });
 
         infowindow.open(mapView, marker);
-        apiData();
+        apiData(name);
     });
 
 }
@@ -46,7 +46,7 @@ var mapView = new google.maps.Map(document.getElementById('map-canvas'), {
 
 // The view model takes in a name, lattitude and longitude.
 
-var viewModel = function() {
+var viewModel = function(name) {
 
     var self = this;
 
@@ -65,7 +65,7 @@ var viewModel = function() {
 
     }
 
-    this.apiData = function() {
+    this.apiData = function(name) {
 
         //TODO : Fix fail request.
 
