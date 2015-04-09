@@ -16,14 +16,14 @@ function mapPin(name, lat, long) {
 
     // This initalizes the info window when the markers are clicked. It also creates a div for the API data.
 
-    var contentString = '<div id="wikiData"></div>';
+    var contentString = '<div data-bind="click: viewModel().setCurrentInfoWindow" id="wikiData"></div>';
 
     var infoWindow = new google.maps.InfoWindow({
         content: contentString
 
-    })
+    });
 
-    // This function causes the markers to bounce when they are clicked.
+    // This function causes the markers to bounce when they are clicked. 
 
     function toggleBounce() {
 
@@ -34,14 +34,17 @@ function mapPin(name, lat, long) {
         }
     }
 
-    // This function pulls in data.
+    // This function pulls in data from the WikiPedia API.
 
-    function apiData(name) {
+    apiData = function() {
 
+        var $wikiData = $("#wikiData");
         var wikipediaURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + name + '&format=json&callback=wikiCallback';
         var wikiRequestTimeout = setTimeout(function () {
-            wikiData.text("Failed to get Wikipedia resources");
-        }, 8000);
+            $wikiData.text("Failed to get Wikipedia resources");
+        }, 500);
+
+        $wikiData.text("");
 
         $.ajax({
 
@@ -54,8 +57,8 @@ function mapPin(name, lat, long) {
                 for (var i = 0; i < articleList.length; i++) {
                     articleStr = articleList[i];
                     var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-                    wikiData.append('<li><a href ="' + url + '">' + articleStr + '</a></li>');
-                };
+                    $wikiData.append('<li><a href ="' + url + '">' + articleStr + '</a></li>');
+                }
 
                 clearTimeout(wikiRequestTimeout);
             }
@@ -67,7 +70,9 @@ function mapPin(name, lat, long) {
     
     google.maps.event.addListener(marker, 'click', toggleBounce);
     google.maps.event.addListener(marker, 'click', function () {
-        infoWindow.open(mapView, marker, apiData);
+        infoWindow.close();
+        infoWindow.open(mapView, marker);
+        apiData();
     });
 
 }
@@ -82,10 +87,15 @@ var mapView = new google.maps.Map(document.getElementById('map-canvas'), {
 // The view model takes in a name, lattitude and longitude.
 
 var viewModel = {
+
     pins: ko.observableArray([
         new mapPin("Charlies Bakery", 61.196148, -149.885577),
         new mapPin("Moose's Tooth", 61.190491, -149.868937)
-    ])
+    ]),
+
+    setCurrentInfoWindow: function (clickedWindow) {
+        this.currentInfoWindow(clickedWindow);
+    }
 };
 
 // Initiates the viewModel bindings.
