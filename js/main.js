@@ -10,7 +10,6 @@ function mapPin(name, lat, long, contentString) {
     // This initializes the markers on the map. It also adds an annimation too.
 
     var marker = new google.maps.Marker({
-        title: name,
         position: new google.maps.LatLng(lat, long),
         map: mapView,
         animation: google.maps.Animation.DROP
@@ -19,7 +18,8 @@ function mapPin(name, lat, long, contentString) {
     // This initalizes the info window when the markers are clicked.
 
     var infoWindow = new google.maps.InfoWindow({
-        content: contentString
+        content: name + lat + long
+
     })
 
     // This function causes the markers to bounce when they are clicked.
@@ -34,7 +34,7 @@ function mapPin(name, lat, long, contentString) {
     }
 
     // This calls the both functions.
-
+    
     google.maps.event.addListener(marker, 'click', toggleBounce);
     google.maps.event.addListener(marker, 'click', function () {
         infoWindow.open(mapView, marker);
@@ -53,11 +53,42 @@ var mapView = new google.maps.Map(document.getElementById('map-canvas'), {
 
 var viewModel = {
     pins: ko.observableArray([
-        new mapPin("Charlies Bakery", 61.196148, -149.885577, "Testinglol"),
-        new mapPin("Moose's Tooth", 61.190491, -149.868937)
+        new mapPin("Charlies Bakery", 61.196148, -149.885577, content),
+        new mapPin("Moose's Tooth", 61.190491, -149.868937, content)
     ])
 };
 
 // Initiates the viewModel bindings.
 
+var content = document.createElement('div')
+content.id = "content"
+
+var apiData = function() {
+
+    var wikipediaURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + name + '&format=json&callback=wikiCallback';
+    var wikiRequestTimeout = setTimeout(function () {
+        $content.text("Failed to get Wikipedia resources");
+    }, 8000);
+
+    $.ajax({
+
+        url: wikipediaURL,
+        dataType: "jsonp",
+
+        success: function (response) {
+            var articleList = response[1];
+
+            for (var i = 0; i < articleList.length; i++) {
+                articleStr = articleList[i];
+                var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+                $content.append('<li><a href ="' + url + '">' + articleStr + '</a></li>');
+            };
+
+            clearTimeout(wikiRequestTimeout);
+        }
+    });
+
+}
+
 ko.applyBindings(viewModel);
+apiData();
