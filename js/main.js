@@ -1,27 +1,30 @@
-// The mapPin constructor class takes in logic from the View Model to display the pins you see on the map.
-var mapPin = function(name, lat, long, text) {
+// The mapPin fucntion takes in name, lat, long and text data from the viewModel.
+
+var mapPin = function (name, lat, long, text) {
+
+    // Here we setup the observables.
 
     this.name = ko.observable(name);
     this.lat = ko.observable(lat);
     this.long = ko.observable(long);
     this.text = ko.observable(text);
 
-    // This initializes the markers on the map. It also adds an annimation too.
+    // This setups up the map markers at the specified coordinates in the viewModel.
 
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, long),
-        map: mapView,
+        map: map,
         animation: google.maps.Animation.DROP
     });
 
-    // This initalizes the info window when the markers are clicked. It also creates a div for the API data.
-
-    // This function pulls in data from the WikiPedia API.
+    // 
 
     var contentString = '<li data-bind="foreach: articleList"><a data-bind="attr: {href: url}, text: content"></a></li>';
     var infowindow = new google.maps.InfoWindow({});
 
-    google.maps.event.addListener(mapView, 'click', function () {
+    // These are the functions that are called when the map markers are clicked.
+
+    google.maps.event.addListener(map, 'click', function () {
         infowindow.close();
     });
 
@@ -31,20 +34,20 @@ var mapPin = function(name, lat, long, text) {
             content: text + contentString
         });
 
-        infowindow.open(mapView, marker);
+        infowindow.open(map, marker);
         apiData(name);
     });
-
 }
 
-// This triggers the map to display on the screen when called on.
+// This sets up the map. The mapPin function uses this.
 
-var mapView = new google.maps.Map(document.getElementById('map-canvas'), {
+var map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 12,
     center: new google.maps.LatLng(61.196148, -149.885577),
 });
 
-// The view model takes in a name, lattitude and longitude.
+
+// This is where all of our data is pulled from using observables.
 
 var viewModel = function(name) {
 
