@@ -16,7 +16,7 @@ function mapPin(name, lat, long) {
 
     // This initalizes the info window when the markers are clicked. It also creates a div for the API data.
 
-    var contentString = '<div data-bind="click: viewModel().setCurrentInfoWindow" id="wikiData"></div>';
+    var contentString = '<div data-bind="" id="wikiData"></div>';
 
     var infoWindow = new google.maps.InfoWindow({
         content: contentString
@@ -92,10 +92,6 @@ var viewModel = {
         new mapPin("Charlies Bakery", 61.196148, -149.885577),
         new mapPin("Moose's Tooth", 61.190491, -149.868937)
     ]),
-
-    setCurrentInfoWindow: function (clickedWindow) {
-        this.currentInfoWindow(clickedWindow);
-    }
 };
 
 // Initiates the viewModel bindings.
