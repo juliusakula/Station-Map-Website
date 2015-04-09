@@ -20,7 +20,7 @@ var mapPin = function (name, lat, long, text) {
     // 
 
     var contentString = '<li data-bind="foreach: articleList"><a data-bind="attr: {href: url}, text: content"></a></li>';
-    var infowindow = new google.maps.InfoWindow({});
+    infowindow = new google.maps.InfoWindow;
 
     // These are the functions that are called when the map markers are clicked.
 
@@ -29,13 +29,9 @@ var mapPin = function (name, lat, long, text) {
     });
 
     google.maps.event.addListener(marker, 'click', function () {
-        infowindow.close();
-        infowindow = new google.maps.InfoWindow({
-            content: text + contentString
-        });
-
-        infowindow.open(map, marker);
         apiData(name);
+        infowindow.setContent(contentString);
+        infowindow.open(map, marker);
     });
 }
 
