@@ -28,36 +28,27 @@
                 </li>
                 <li>
                     <a href="#">Contact</a>
-                <li id="pinned-locations">
-                    <a href="#">Pinned Locations</a>
-                </li>
+             </li>
+                <input type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"  class="form-control" placeholder="Filter locations...">
                 <ul data-bind="foreach: pins" id="pinned-locations-list">
                     <li data-bind="text: name"></li>
                 </ul>
-                    <input type="text" class="form-control" placeholder="Search locations...">
                     <li>Reviews Powered by <img src="img/yelp_logo.png" /></li>
-                </li>
             </ul>
         </div>
     </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
+    <li data-bind="foreach: articleList"><a data-bind="attr: {href: url}, text: content"></a></li>
             <div id="map-canvas"><a href="#menu-toggle" class="btn btn-default sidebar-button" id="menu-toggle">Toggle Menu</a></div>
-
     <script type="text/javascript" src="js/libs/jquery.js"></script>
     <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
-    <script type="text/javascript" src="js/libs/oauth-1.0a.js"></script>
-    <script type="text/javascript" src="js/fetch.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
-    });
-
-    $("#pinned-locations").click(function() {
-        $("#pinned-locations-list").toggle("slow");
     });
     </script>
 
