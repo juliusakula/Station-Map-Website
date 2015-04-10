@@ -1,10 +1,68 @@
-#pinned-locations-list {
-    color: red;
+html, body, #map-canvas {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+html,body{
+  	height:100%;
 }
 
-.sidebar-button {
-	position: absolute;
-	z-index: 1000;
-
+body{
+  	padding-top:50px;
 }
 
+.navbar-custom .icon-bar {
+	background-color:#fff;
+}
+
+.navbar-custom {
+	background-color: #595F8B;
+    color:#fff;
+}
+
+.navbar-custom li>a:hover,.navbar-custom li>a:focus {
+	background-color:#58b1e9;
+}
+
+.navbar-custom a{
+    color:#fefefe;
+}
+
+.navbar-custom .form-control:focus {
+	border-color: #49bfff;
+	outline: 0;
+	-webkit-box-shadow: inset 0 0 0;
+	box-shadow: inset 0 0 0;
+}
+
+.control {
+  border: 1px solid #606060;
+  background-color: #fff;
+  -moz-box-shadow: 2px 2px 3px #888;
+  -webkit-box-shadow: 2px 2px 3px #888;
+  box-shadow: 2px 2px 2px #888;
+}
+
+#main, #main>.row {
+	height:100%;
+}
+
+#main>.row {
+    overflow-y:scroll;
+}
+
+#left {
+	height:100%;
+}
+
+#map-canvas {
+	width:100%;
+    height:calc(100% - 0);
+    position:absolute;
+    right:16px;
+    top:50px;
+    bottom:0;
+    overflow:hidden;
+}

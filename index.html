@@ -1,3 +1,5 @@
+<!--UK flag image credits: http://piq.codeus.net/picture/33983/british_and_american_flag_ -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,52 +7,46 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-        html, body, #map-canvas {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE">
     </script>
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Neighborhood Map <img src="img/map_icon.png">
-                    </a>
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img src="img/logo.png" /></a>
+            <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul data-bind="foreach: filterPins" class="nav navbar-nav" class=" nav navbar-nav">
+                <li class="active">
+                    <a data-bind="text: name"></a>
                 </li>
-                <li>
-                    <a href="#">Contact</a>
-             </li>
-                <input type="search" data-bind="" autocomplete="off"  class="form-control" placeholder="Filter locations...">
-                <ul data-bind="foreach: pins" id="pinned-locations-list">
-                    <li data-bind="text: name"></li>
-                </ul>
-                    <li>Reviews Powered by <img src="img/yelp_logo.png" /></li>
             </ul>
+            <form class="navbar-form">
+                <div class="form-group" style="display:inline;">
+                    <div class="input-group">
+                        <input data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" type="text" class="form-control" placeholder="Filter Locations"> <span class="input-group-addon">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-    <li data-bind="foreach: articleList"><a data-bind="attr: {href: url}, text: content"></a></li>
-            <div id="map-canvas"><a href="#menu-toggle" class="btn btn-default sidebar-button" id="menu-toggle">Toggle Menu</a></div>
+    <div id="map-canvas" class=""></div>
+
+    <script type="text/html" id="pin">
+        <li>
+            <strong style="color: black" data-bind="text: name"></strong>
+        </li>
+    </script> 
     <script type="text/javascript" src="js/libs/jquery.js"></script>
     <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-
+    <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
