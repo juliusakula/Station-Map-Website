@@ -53,6 +53,7 @@ var viewModel = function () {
         this.lat = ko.observable(lat);
         this.lon = ko.observable(lon);
         this.text = ko.observable(text);
+        this.isVisible = ko.observable(false);
 
         // This setups up the map markers at the specified coordinates in the viewModel.
 
@@ -61,6 +62,16 @@ var viewModel = function () {
             map: map,
             animation: google.maps.Animation.DROP
         });
+
+        this.isVisible.subscribe(function (currentState) {
+            if (currentState) {
+                marker.setMap(map);
+            } else {
+                marker.setMap(null);
+            }
+        });
+
+        this.isVisible(true);
 
         // These are the functions that are called when the map markers are clicked.
 
@@ -89,11 +100,15 @@ var viewModel = function () {
 
     self.filterPins = ko.computed(function () {
         var search = self.query().toLowerCase();
+
         return ko.utils.arrayFilter(self.pins(), function (pin) {
-            return pin.name().toLowerCase().indexOf(search) >= 0;
+            var doesMatch = pin.name().toLowerCase().indexOf(search) >= 0;
+
+            pin.isVisible(doesMatch);
+
+            return doesMatch;
         });
     });
-
 
     self.apiData = function (name) {
 
