@@ -31,13 +31,22 @@
             <form class="navbar-form">
                 <div class="form-group" style="display:inline;">
                     <div class="input-group">
-                        <input data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" type="text" class="form-control" placeholder="Filter Locations"> <span class="input-group-addon">
+                        <input data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" type="text" class="form-control" placeholder="Filter Locations">
                     </div>
                 </div>
             </form>
         </div>
     </div>
     <div id="map-canvas" class=""></div>
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="control" id="selectors">
+                <div class="heading" id="selectorsHeading">Selectors</div>
+                <div class="col-xs-4">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/html" id="pin">
         <li>
