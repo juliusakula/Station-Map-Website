@@ -6,13 +6,22 @@ function Model() {
      */
     this.generateLists = function (articles) {
         var Info_Content = '<ol>\n';
+		
+		if (articles.length < 2) {
+			var content = articles[0].content;
 
-        for (var i = 0; i < articles.length; i++) {
-            var content = articles[i].content;
-            var url = articles[i].url;
+			Info_Content += '<p style="color: red">' + content + '</p>';
+		}
+		
+		else {
 
-            Info_Content += '<li><a href="' + url + '">' + content + '</a></li>\n';
-        }
+			for (var i = 0; i < articles.length; i++) {
+				var content = articles[i].content;
+				var url = articles[i].url;
+
+				Info_Content += '<li><a href="' + url + '">' + content + '</a></li>\n';
+			}
+		}
 
         Info_Content += '</ol>';
 
@@ -38,7 +47,7 @@ var viewModel = function () {
     // This sets up the map. The mapPin function uses this.
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 13,
-        center: new google.maps.LatLng(51.500542, -0.100507),
+        center: new google.maps.LatLng(51.497477, -0.127290),
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
 
@@ -53,7 +62,6 @@ var viewModel = function () {
         this.lat = ko.observable(lat);
         this.lon = ko.observable(lon);
         this.text = ko.observable(text);
-        this.isVisible = ko.observable(false);
 
         // This setups up the map markers at the specified coordinates in the viewModel.
 
@@ -62,6 +70,8 @@ var viewModel = function () {
             map: map,
             animation: google.maps.Animation.DROP
         });
+		
+		this.isVisible = ko.observable(false);
 
         this.isVisible.subscribe(function (currentState) {
             if (currentState) {
@@ -75,7 +85,7 @@ var viewModel = function () {
 
         // These are the functions that are called when the map markers are clicked.
 
-        google.maps.event.addListener(marker, 'click', function () {
+        this.click = google.maps.event.addListener(marker, 'click', function () {
             // Send AJAX request first
             self.apiData(name);
 
@@ -129,7 +139,11 @@ var viewModel = function () {
                 }
             },
             error: function () {
-                // Do fail request here
+				self.articleList.removeAll();
+				
+				console.log("Removed all and error.")
+				var errorResponse = "Unable to contact the Wikipedia database. Select another map marker to try again."
+                self.articleList.push(new self.article(errorResponse));
             }
         };
 
