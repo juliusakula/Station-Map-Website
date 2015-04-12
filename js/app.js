@@ -6,19 +6,16 @@ function Model() {
      */
     this.generateLists = function (articles) {
         var Info_Content = '<ol>\n';
-		
-		if (articles.length < 2) {
-			var content = articles[0].content;
 
-			Info_Content += '<p style="color: red">' + content + '</p>';
-		}
-		
-		else {
-
-			for (var i = 0; i < articles.length; i++) {
-				var content = articles[i].content;
-				var url = articles[i].url;
-
+		for (var i = 0; i < articles.length; i++) {
+			var content = articles[i].content;
+			var url = articles[i].url;
+				
+			if (articles[i].error) {
+				Info_Content += '<h4 style="color: red">' + content + '</h4>';
+			}
+				
+			else {
 				Info_Content += '<li><a href="' + url + '">' + content + '</a></li>\n';
 			}
 		}
@@ -27,7 +24,6 @@ function Model() {
 
         return Info_Content;
     };
-
 }
 
 var model = new Model();
@@ -39,9 +35,10 @@ var viewModel = function () {
 
     self.articleList = ko.observableArray();
 
-    self.article = function (content, url) {
+    self.article = function (content, url, error) {
         this.content = content;
         this.url = url;
+		this.error = error;
     };
 
     // This sets up the map. The mapPin function uses this.
@@ -123,11 +120,11 @@ var viewModel = function () {
     self.apiData = function (name) {
 
         var wikipediaURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + name + '&format=json&callback=wikiCallback';
-        var wikiFailText = 'Failed to get Wikipedia resources';
 
         parameters = {
             url: wikipediaURL,
             dataType: "jsonp",
+			
             success: function (response) {
                 self.articleList.removeAll();
                 var articles = response[1];
@@ -135,15 +132,14 @@ var viewModel = function () {
                 for (var i = 0; i < articles.length; i++) {
                     var name = articles[i];
                     var url = 'http://en.wikipedia.org/wiki/' + name;
-                    self.articleList.push(new self.article(name, url));
+                    self.articleList.push(new self.article(name, url, false));
                 }
             },
             error: function () {
 				self.articleList.removeAll();
-				
-				console.log("Removed all and error.")
+				console.log("Removed all and triggered error true.")
 				var errorResponse = "Unable to contact the Wikipedia database. Select another map marker to try again."
-                self.articleList.push(new self.article(errorResponse));
+                self.articleList.push(new self.article(errorResponse, null, true));
             }
         };
 
