@@ -6,16 +6,13 @@
     <title>Map Project</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Move Scripts to the bottom -->
 	<script type="text/javascript" src="js/libs/jquery.js"></script>
     <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 	<!-- Remove, temp fix for Gmaps Bug -->
 	<base href="http://maps.gstatic.com/mapfiles/openhand_8_8.cur" target="_blank" >
-	<!-- Remove, temp fix for Gmaps Bug -->
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE">
-    </script>
 </head>
 <body>
     <div class="navbar navbar-style navbar-fixed-top">
@@ -31,7 +28,7 @@
         <div class="navbar-collapse collapse">
             <ul data-bind="foreach: filterPins" class="nav navbar-nav" class=" nav navbar-nav">
                 <li class="active">
-                    <a data-bind="text: name"></a>
+                    <a data-bind="text: name, click: $parent.pan"></a>
                 </li>
             </ul>
             <form class="navbar-form">
@@ -44,5 +41,8 @@
         </div>
     </div>
     <div id="map-canvas"></div>
+
+	<script type="text/javascript">var mapLoaded = false;</script>
+	<script type="text/javascript" onload="mapLoaded = true;" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE"></script>
 </body>
 </html>
