@@ -81,14 +81,14 @@ var viewModel = function () {
         this.isVisible(true);
 		
         // These are the functions that are called when the map markers are clicked.
-		self.apiData(name);
-		infowindow.setContent("<h1>" + name + "</h1>" + "<p>" + text + "</p>" + "<h3>Related Wikipedia Articles:</h3>" + model.generateLists(self.articleList()));
 
         google.maps.event.addListener(marker, 'click', function () {
             // Send AJAX request first
+            self.apiData(name);
 
             // Wait for the AJAX call to finish 300 milliseconds later
             window.setTimeout(function () {
+                infowindow.setContent("<h1>" + name + "</h1>" + "<p>" + text + "</p>" + "<h3>Related Wikipedia Articles:</h3>" + model.generateLists(self.articleList()));
                 infowindow.open(map, marker);
             }, 500);
 
