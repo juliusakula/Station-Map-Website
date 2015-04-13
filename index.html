@@ -1,20 +1,13 @@
 <!--Rail road Image Source: http://en.wikipedia.org/wiki/British_Rail -->
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map Project</title>
+    <title>Famous London Train Stations</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<!-- Move Scripts to the bottom -->
-	<script type="text/javascript" src="js/libs/jquery.js"></script>
-    <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-	<!-- Remove, temp fix for Gmaps Bug -->
-	<base href="http://maps.gstatic.com/mapfiles/openhand_8_8.cur" target="_blank" >
 </head>
 <body>
+    <!-- Start navigation bar -->
     <div class="navbar navbar-style navbar-fixed-top">
         <div class="navbar-header">
             <a class="navbar-brand" href="#"><img src="img/logo.png" /></a>
@@ -23,8 +16,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
         </div>
+        <!-- Data binds for KnockoutJS observables are declared here. These append the locations to the page from the View Model. -->
         <div class="navbar-collapse collapse">
             <ul data-bind="foreach: filterPins" class="nav navbar-nav" class=" nav navbar-nav">
                 <li class="active">
@@ -40,9 +33,17 @@
             </form>
         </div>
     </div>
+    <!-- End navigation bar.-->
+    <!-- Start Google Maps & Scripts. -->
     <div id="map-canvas"></div>
-
-	<script type="text/javascript">var mapLoaded = false;</script>
-	<script type="text/javascript" onload="mapLoaded = true;" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE"></script>
+    <script type="text/javascript" src="js/libs/jquery.js"></script>
+    <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/libs/knockout-3.3.0.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <!--Enable this line to run this page locally This is a workaround fix for a known Google Maps API issue..
+       <base href="http://maps.gstatic.com/mapfiles/openhand_8_8.cur" target="_blank"> ---->
+    <!-- Here is where I set a false variable before the Google Maps API is loaded. Once it's loaded it sets this variable to true. -->
+    <script type="text/javascript">var mapLoaded = false;</script>
+    <script type="text/javascript" onload="mapLoaded = true;" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8Vlwh0ukzT-3zKSnlUqqZOqxnQ9_0fE"></script>
 </body>
 </html>
