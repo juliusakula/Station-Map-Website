@@ -1,0 +1,4 @@
+https://developers.google.com/maps/
+http://knockoutjs.com/
+http://www.mediawiki.org/wiki/API:Main_page
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
