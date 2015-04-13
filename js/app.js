@@ -79,20 +79,32 @@ var viewModel = function () {
         });
 
         this.isVisible(true);
-
+		
         // These are the functions that are called when the map markers are clicked.
+		self.apiData(name);
+		infowindow.setContent("<h1>" + name + "</h1>" + "<p>" + text + "</p>" + "<h3>Related Wikipedia Articles:</h3>" + model.generateLists(self.articleList()));
 
         google.maps.event.addListener(marker, 'click', function () {
             // Send AJAX request first
-            self.apiData(name);
 
             // Wait for the AJAX call to finish 300 milliseconds later
             window.setTimeout(function () {
-                infowindow.setContent("<h1>" + name + "</h1>" + "<p>" + text + "</p>" + "<h3>Related Wikipedia Articles:</h3>" + model.generateLists(self.articleList()));
                 infowindow.open(map, marker);
             }, 500);
 
         });
+		
+		this.pan = function () {
+			self.apiData(name);
+			
+            window.setTimeout(function () {
+                infowindow.setContent("<h1>" + name + "</h1>" + "<p>" + text + "</p>" + "<h3>Related Wikipedia Articles:</h3>" + model.generateLists(self.articleList()));
+                infowindow.open(map, marker);
+            }, 500);
+			
+			map.panTo(marker.position);
+			
+		};
     };
 
     self.pins = ko.observableArray([
@@ -103,16 +115,6 @@ var viewModel = function () {
       new self.mapPin("Embankment Tube Station", 51.507225, -0.122215, "Embankment is a London Underground station in the City of Westminster, known by various names during its history. It is served by the Circle, District, Northern and Bakerloo lines. On the Northern and Bakerloo lines, the station is between Waterloo and Charing Cross stations; on the Circle and District lines, it is between Westminster and Temple and is in Travelcard Zone 1. The station has two entrances, one on Victoria Embankment and the other on Villiers Street. The station is adjacent to Victoria Embankment Gardens and is close to Charing Cross station, Embankment Pier, Hungerford Bridge, Cleopatra's Needle, the Royal Air Force Memorial, the Savoy Chapel and Savoy Hotel and the Playhouse and New Players Theatres.")
     ]);
 	
-	// self.pan is currently broken.
-	
-	self.pan = function () {
-		
-		for (var i = 0; i < self.pins.length; i++) {
-			console.log("im being clicked");
-			map.panTo(marker.position);
-			break;
-		}
-	};
 
     self.query = ko.observable('');
 
@@ -163,7 +165,6 @@ var viewModel = function () {
 $(document).ready(function () {
 	
 	if (!mapLoaded) alert("Google Maps has failed to load. Please refresh the page to try again.");
-	
     ko.applyBindings(new viewModel());
 	
 });
