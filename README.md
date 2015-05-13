@@ -3,7 +3,7 @@ Built using JavaScript, jQuery, Bootstrap and KnockoutJS declarative bindings. I
 
 
 ## Getting Started
-Open "index.html" with a web browser. You'll need to ensure that you have scripts enabled for everything to function properly.
+* Open "index.html" with a web browser. You'll need to ensure that you have scripts enabled for everything to function properly.
 
 
 ![Screenshot](screenshot.png)
