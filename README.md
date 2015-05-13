@@ -1,5 +1,5 @@
 # Station Map Website
-Built using JavaScript, jQuery, Bootstrap and KnockOutJS declarative bindings. It pulls in data from both the Wikipedia and Google Maps API.
+Built using JavaScript, jQuery, Bootstrap and KnockoutJS declarative bindings. It pulls in data from both the Wikipedia and Google Maps API.
 
 
 ## Getting Started
