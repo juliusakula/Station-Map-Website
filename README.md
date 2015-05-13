@@ -1,5 +1,5 @@
 # Station Map Webpage
-Pulls in data from both the Wikipedia and Google Maps API and displays it using KnockoutJS declarative bindings.
+Displays a list of train stations by pulling in data from both the Wikipedia and Google Maps API. It takes this data and displays it using KnockoutJS declarative bindings.
 
 
 ## Getting Started
