@@ -39,7 +39,7 @@ var viewModel = function () {
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 13,
-        center: new google.maps.LatLng(51.497477, -0.127290),
+        center: new google.maps.LatLng(37.8165517, -122.2615792),
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
 
